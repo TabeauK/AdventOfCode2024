@@ -42,21 +42,21 @@ Parser day03part2 = new("03part2");
 OperetionCommand command2 = day03part2.Parse<OperetionCommand>(Parser.ParseType.OneLine).First();
 Console.WriteLine(command2.CountConditional);
 
-return 0;
-//Placeholders forward
-
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 04 part 1");
-Console.WriteLine("");
+Console.WriteLine("Find word 'XMAS' in wordsearch");
 Parser day04 = new("04");
-List<Day04> d04 = day04.Parse<Day04>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+Wordsearch ws = day04.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
+Console.WriteLine(ws.SearchXMAS());
 
 Console.WriteLine("Day 04 part 2");
-Console.WriteLine("");
+Console.WriteLine("Find X shape of 'MAS' in wordsearch");
 Parser day04part2 = new("04part2");
-List<Day04> d04p2 = day04part2.Parse<Day04>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+Wordsearch ws2 = day04.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
+Console.WriteLine(ws2.SearchX_MAS());
+
+return 0;
+//Placeholders forward
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 05 part 1");

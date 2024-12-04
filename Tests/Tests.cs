@@ -71,26 +71,26 @@ namespace Tests
             Assert.AreEqual(48, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay04Example()
         {
             Parser day = new("04");
-            List<Day04> d = day.Parse<Day04>(Parser.ParseType.EveryLine).ToList();
+            Wordsearch ws = day.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
 
-            int count = 0; //TODO
+            int count = ws.SearchXMAS();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(18, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay04Part2Example()
         {
             Parser day = new("04part2");
-            List<Day04> d = day.Parse<Day04>(Parser.ParseType.EveryLine).ToList();
+            Wordsearch ws = day.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
 
-            int count = 0; //TODO
+            int count = ws.SearchX_MAS();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(9, count);
         }
 
         // [TestMethod]

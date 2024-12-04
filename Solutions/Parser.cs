@@ -53,6 +53,8 @@ namespace Solutions
                             list.Add(T.ParseMultiline(multiline));
                         else
                             multiline.Add(input);
+                    if(multiline.Count > 0)
+                        list.Add(T.ParseMultiline(multiline));
                     break;
                 case ParseType.Columns:
                     List<List<string>> columns = new();
