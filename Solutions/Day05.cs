@@ -58,7 +58,6 @@ namespace Solutions
                 oppositeRules = oppositeRules,
                 incorrectUpdates = incorrectUpdates,
                 correctUpdates = correctUpdates,
-
             };
         }
 
@@ -72,18 +71,15 @@ namespace Solutions
                 List<int> page = incorrectUpdates[i];
                 int? breaker;
                 while ((breaker = FindRuleBreaker(rules, page)) != null)
-                    FixUpdate(oppositeRules, ref page, breaker.Value);
+                {
+                    int breakingPage = page[breaker.Value];
+                    int index = page.FindIndex(x => oppositeRules[breakingPage].Contains(x));
+                    page.RemoveAt(breaker.Value);
+                    page.Insert(index, breakingPage);
+                }
                 sum += incorrectUpdates[i][incorrectUpdates[i].Count/2];
             }
             return sum;
-        }
-
-        static private void FixUpdate(Dictionary<int, List<int>> oppositeRules, ref List<int> update, int breaker)
-        {
-            int breakingPage = update[breaker];
-            int index = update.FindIndex(x => oppositeRules[breakingPage].Contains(x));
-            update.RemoveAt(breaker);
-            update.Insert(index, breakingPage);
         }
 
         static private int? FindRuleBreaker(Dictionary<int, List<int>> rules, List<int> update)
@@ -98,7 +94,6 @@ namespace Solutions
                     foreach (var rule in rules[page])
                         if (!forbiddenPages.Contains(rule))
                             forbiddenPages.Add(rule);
-
             }
             return null;
         }
