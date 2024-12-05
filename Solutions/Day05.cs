@@ -1,15 +1,106 @@
-﻿namespace Solutions
+﻿using System.Reflection.PortableExecutable;
+
+namespace Solutions
 {
-    public class Day05 : IMyParsable<Day05>
+    public class ManualUpdates : IMyParsable<ManualUpdates>
     {
-        static Day05 IMyParsable<Day05>.Parse(string s)
+        Dictionary<int, List<int>> rules = new();
+        Dictionary<int, List<int>> oppositeRules = new();
+        List<List<int>> correctUpdates = new();
+        List<List<int>> incorrectUpdates = new();
+
+        static ManualUpdates IMyParsable<ManualUpdates>.Parse(string s)
         {
             throw new NotImplementedException();
         }
 
-        static Day05 IMyParsable<Day05>.ParseMultiline(ICollection<string> s)
+        static ManualUpdates IMyParsable<ManualUpdates>.ParseMultiline(ICollection<string> s)
         {
-            throw new NotImplementedException();
+            Dictionary<int, List<int>> rules = new();
+            Dictionary<int, List<int>> oppositeRules = new();
+            List<List<int>> updates = new();
+            bool firstpart = true;
+            foreach (var line in s)
+            {
+                if (firstpart)
+                {
+                    string[] split = line.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                    if (split.Length == 2)
+                    {
+                        int leftPage = int.Parse(split[1]);
+                        int rightPage = int.Parse(split[0]);
+                        if (rules.ContainsKey(leftPage))
+                            rules[leftPage].Add(rightPage);
+                        else
+                            rules.Add(leftPage, new() { rightPage });
+                        if (oppositeRules.ContainsKey(rightPage))
+                            oppositeRules[rightPage].Add(leftPage);
+                        else
+                            oppositeRules.Add(rightPage, new() { leftPage });
+                        continue;
+                    }
+                    firstpart = false;
+                    continue;
+                }
+                updates.Add(line.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToList());
+            }
+            List<List<int>> correctUpdates = new();
+            List<List<int>> incorrectUpdates = new();
+            foreach (var update in updates)
+                if (!FindRuleBreaker(rules, update).HasValue)
+                    correctUpdates.Add(update);
+                else
+                    incorrectUpdates.Add(update);
+
+            return new ManualUpdates()
+            {
+                rules = rules,
+                oppositeRules = oppositeRules,
+                incorrectUpdates = incorrectUpdates,
+                correctUpdates = correctUpdates,
+
+            };
+        }
+
+        public int GetSumOfMiddleElemntsFromCorrectRules => correctUpdates.Sum(x => x[x.Count / 2]);
+
+        public int GetSumOfMiddleElemntsFromFixedIncorrectRules()
+        {
+            int sum = 0;
+            for (int i = 0; i < incorrectUpdates.Count; i++)
+            {
+                List<int> page = incorrectUpdates[i];
+                int? breaker;
+                while ((breaker = FindRuleBreaker(rules, page)) != null)
+                    FixUpdate(oppositeRules, ref page, breaker.Value);
+                sum += incorrectUpdates[i][incorrectUpdates[i].Count/2];
+            }
+            return sum;
+        }
+
+        static private void FixUpdate(Dictionary<int, List<int>> oppositeRules, ref List<int> update, int breaker)
+        {
+            int breakingPage = update[breaker];
+            int index = update.FindIndex(x => oppositeRules[breakingPage].Contains(x));
+            update.RemoveAt(breaker);
+            update.Insert(index, breakingPage);
+        }
+
+        static private int? FindRuleBreaker(Dictionary<int, List<int>> rules, List<int> update)
+        {
+            SortedSet<int> forbiddenPages = new();
+            for (int i = 0; i < update.Count; i++)
+            {
+                int page = update[i];
+                if (forbiddenPages.Contains(page))
+                    return i;
+                if (rules.ContainsKey(page))
+                    foreach (var rule in rules[page])
+                        if (!forbiddenPages.Contains(rule))
+                            forbiddenPages.Add(rule);
+
+            }
+            return null;
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Solutions
             EveryLine,
             MultiLine,
             Columns,
+            All,
         }
 
         public ICollection<T> Parse<T>(ParseType parseType) where T : IMyParsable<T>
@@ -72,6 +73,8 @@ namespace Solutions
                     foreach (var column in columns)
                         list.Add(T.ParseMultiline(column));
                     break;
+                case ParseType.All:
+                    return new List<T>() { T.ParseMultiline(inputs.ToList()) };
             }
             return list;
         }

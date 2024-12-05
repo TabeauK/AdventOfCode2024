@@ -93,26 +93,26 @@ namespace Tests
             Assert.AreEqual(9, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay05Example()
         {
             Parser day = new("05");
-            List<Day05> d = day.Parse<Day05>(Parser.ParseType.EveryLine).ToList();
+            ManualUpdates d = day.Parse<ManualUpdates>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.GetSumOfMiddleElemntsFromCorrectRules;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(143, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay05Part2Example()
         {
             Parser day = new("05part2");
-            List<Day05> d = day.Parse<Day05>(Parser.ParseType.EveryLine).ToList();
+            ManualUpdates d = day.Parse<ManualUpdates>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.GetSumOfMiddleElemntsFromFixedIncorrectRules();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(123, count);
         }
 
         // [TestMethod]

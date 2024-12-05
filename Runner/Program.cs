@@ -44,32 +44,32 @@ Console.WriteLine(command2.CountConditional);
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 04 part 1");
-Console.WriteLine("Find word 'XMAS' in wordsearch");
+Console.WriteLine("Find word 'XMAS' in wordsearch:");
 Parser day04 = new("04");
 Wordsearch ws = day04.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
 Console.WriteLine(ws.SearchXMAS());
 
 Console.WriteLine("Day 04 part 2");
-Console.WriteLine("Find X shape of 'MAS' in wordsearch");
+Console.WriteLine("Find X shape of 'MAS' in wordsearch:");
 Parser day04part2 = new("04part2");
 Wordsearch ws2 = day04.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
 Console.WriteLine(ws2.SearchX_MAS());
 
-return 0;
-//Placeholders forward
-
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 05 part 1");
-Console.WriteLine("");
+Console.WriteLine("Sum middle elemnts of correct updates:");
 Parser day05 = new("05");
-List<Day05> d05 = day05.Parse<Day05>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+ManualUpdates manualUpdates = day05.Parse<ManualUpdates>(Parser.ParseType.All).First();
+Console.WriteLine(manualUpdates.GetSumOfMiddleElemntsFromCorrectRules);
 
 Console.WriteLine("Day 05 part 2");
-Console.WriteLine("");
+Console.WriteLine("Sum middle elemnts of fixed incorrect updates:");
 Parser day05part2 = new("05part2");
-List<Day05> d05p2 = day05part2.Parse<Day05>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+ManualUpdates manualUpdates2 = day05.Parse<ManualUpdates>(Parser.ParseType.All).First();
+Console.WriteLine(manualUpdates2.GetSumOfMiddleElemntsFromFixedIncorrectRules());
+
+return 0;
+//Placeholders forward
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 06 part 1");
