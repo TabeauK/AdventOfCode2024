@@ -93,13 +93,13 @@ namespace Solutions
         {
             List<(int row, int column, int direction)> directedPath = CountPath(out _, new() { new(start.row, start.column, 0) });
             SortedSet<(int row, int column)> solutions = new();
-            for (int i = 2; i < directedPath.Count; i++)
+            for (int i = 1; i < directedPath.Count; i++)
             {
                 (int, int) tile = new(directedPath[i].row, directedPath[i].column);
                 if (solutions.Contains(tile))
                     continue;
                 obstacles.Add(tile);
-                CountPath(out bool isLoop, directedPath.Take(i/2).ToList());
+                CountPath(out bool isLoop, directedPath.Take(1).ToList());
                 if (isLoop)
                     solutions.Add(tile);
                 obstacles.Remove(tile);
