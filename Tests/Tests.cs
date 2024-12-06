@@ -115,26 +115,26 @@ namespace Tests
             Assert.AreEqual(123, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay06Example()
         {
             Parser day = new("06");
-            List<Day06> d = day.Parse<Day06>(Parser.ParseType.EveryLine).ToList();
+            SecurityMap d = day.Parse<SecurityMap>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.CountPath(out _).Count;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(41, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay06Part2Example()
         {
             Parser day = new("06part2");
-            List<Day06> d = day.Parse<Day06>(Parser.ParseType.EveryLine).ToList();
+            SecurityMap d = day.Parse<SecurityMap>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.CountPossibleObstructions();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(6, count);
         }
 
         // [TestMethod]

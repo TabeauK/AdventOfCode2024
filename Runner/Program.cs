@@ -68,21 +68,23 @@ Parser day05part2 = new("05part2");
 ManualUpdates manualUpdates2 = day05.Parse<ManualUpdates>(Parser.ParseType.All).First();
 Console.WriteLine(manualUpdates2.GetSumOfMiddleElemntsFromFixedIncorrectRules());
 
-return 0;
-//Placeholders forward
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 06 part 1");
-Console.WriteLine("");
+Console.WriteLine("Count length of the path on a map until is out of bounds:");
 Parser day06 = new("06");
-List<Day06> d06 = day06.Parse<Day06>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+SecurityMap map = day06.Parse<SecurityMap>(Parser.ParseType.All).First();
+Console.WriteLine(map.CountPath(out _).Count);
 
 Console.WriteLine("Day 06 part 2");
-Console.WriteLine("");
+Console.WriteLine("Count possible places to put an obstacle to make a loop:");
 Parser day06part2 = new("06part2");
-List<Day06> d06p2 = day06part2.Parse<Day06>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+SecurityMap map2 = day06part2.Parse<SecurityMap>(Parser.ParseType.All).First();
+Console.WriteLine("[This take over a minute. Uncomment when needed]");
+//Console.WriteLine(map.CountPossibleObstructions());
+
+return 0;
+//Placeholders forward
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 07 part 1");
