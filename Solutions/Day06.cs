@@ -1,19 +1,21 @@
-﻿namespace Solutions
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace Solutions
 {
     public class SecurityMap : IMyParsable<SecurityMap>
     {
-        SortedSet<Tuple<int, int>> obstacles = new();
+        SortedSet<(int row, int column)> obstacles = new();
 
         int mapWidth, mapHeight;
 
-        Tuple<int, int> start = new(0, 0);
+        (int row, int column) start = new(0, 0);
 
-        readonly List<Tuple<int, int>> directions = new()
+        readonly List<(int row, int column)> directions = new()
         {
-            new Tuple<int, int>(-1,0),
-            new Tuple<int, int> (0, 1),
-            new Tuple<int, int>(1, 0),
-            new Tuple<int, int> (0, -1),
+            new(-1,0),
+            new(0, 1),
+            new(1, 0),
+            new(0, -1),
         };
 
         static SecurityMap IMyParsable<SecurityMap>.Parse(string s)
@@ -23,17 +25,15 @@
 
         static SecurityMap IMyParsable<SecurityMap>.ParseMultiline(ICollection<string> s)
         {
-            SortedSet<Tuple<int, int>> obstacles = new();
+            SortedSet<(int row, int column)> obstacles = new();
             List<string> map = s.ToList();
-            Tuple<int, int> start = new(0, 0);
+            (int row, int column) start = new(0, 0);
             for (int i = 0; i < map.Count; i++)
                 for (int j = 0; j < map.First().Length; j++)
-                {
                     if (map[i][j] == '^')
-                        start = Tuple.Create(i, j);
+                        start = (i, j);
                     else if (map[i][j] == '#')
-                        obstacles.Add(Tuple.Create(i, j));
-                }
+                        obstacles.Add((i, j));
             return new()
             {
                 start = start,
@@ -43,56 +43,68 @@
             };
         }
 
-        public SortedSet<Tuple<int, int>> CountPath(out bool isLoop)
+        public int CountDefaultPath => CountPath(out _, new() { new(start.row, start.column, 0) }).
+            Select( x => (x.row, x.column)).
+            Distinct().
+            Count();
+
+        public List<(int row, int column, int direction)> CountPath(out bool isLoop, List<(int row, int column, int direction)> currentPath)
         {
             isLoop = false;
-            int sum = 1;
-            int currentDirection = 0;
-            SortedSet<Tuple<int, int, int>> directedPath = new();
-            SortedSet<Tuple<int, int>> path = new() { start };
-            Tuple<int, int> currentPosition = new(start.Item1, start.Item2);
+            List<(int row, int column, int direction)> directedPath = currentPath.ToList();
+            HashSet<(int row, int column, int direction)> lookup = currentPath.ToHashSet();
+            (int row, int column, int direction) currentPosition = currentPath.Last();
             for (; ; )
             {
-
-                Tuple<int, int> nextPosition = new(currentPosition.Item1 + directions[currentDirection].Item1, currentPosition.Item2 + directions[currentDirection].Item2);
-                while (obstacles.Contains(nextPosition))
+                // Next position
+                (int row, int column, int direction) nextPosition = new(
+                    currentPosition.row + directions[currentPosition.direction].row,
+                    currentPosition.column + directions[currentPosition.direction].column,
+                    currentPosition.direction);
+                // Rotate
+                while (obstacles.Contains(new(nextPosition.row, nextPosition.column)))
                 {
-                    currentDirection = (currentDirection + 1) % 4;
-                    nextPosition = new(currentPosition.Item1 + directions[currentDirection].Item1, currentPosition.Item2 + directions[currentDirection].Item2);
+                    int nextDirection = (nextPosition.direction + 1) % 4;
+                    nextPosition = new(
+                        currentPosition.row + directions[nextDirection].row,
+                        currentPosition.column + directions[nextDirection].column,
+                        nextDirection);
                 }
-                if (directedPath.Contains(new(currentPosition.Item1, currentPosition.Item2, currentDirection)))
+                // Check for loop
+                if (lookup.Contains(nextPosition))
+                {
+                    isLoop = true;
                     break;
-                directedPath.Add(new(currentPosition.Item1, currentPosition.Item2, currentDirection));
-                if (nextPosition.Item1 < 0 || nextPosition.Item1 >= mapHeight)
-                    return path;
-                if (nextPosition.Item2 < 0 || nextPosition.Item2 >= mapWidth)
-                    return path;
-                if (!path.Contains(nextPosition))
-                {
-                    path.Add(nextPosition);
-                    sum++;
                 }
+                // Check out of map
+                if (nextPosition.row < 0 || nextPosition.row >= mapHeight)
+                    break;
+                if (nextPosition.column < 0 || nextPosition.column >= mapWidth)
+                    break;
+                // Add to path and move on
+                directedPath.Add(nextPosition);
+                lookup.Add(nextPosition);
                 currentPosition = nextPosition;
             }
-            isLoop = true;
-            return path;
+            return directedPath;
         }
 
         public int CountPossibleObstructions()
         {
-            int sum = 0;
-            SortedSet<Tuple<int, int>> path = CountPath(out _);
-            foreach (var tile in path)
+            List<(int row, int column, int direction)> directedPath = CountPath(out _, new() { new(start.row, start.column, 0) });
+            SortedSet<(int row, int column)> solutions = new();
+            for (int i = 1; i < directedPath.Count; i++)
             {
-                if (start.Item1 == tile.Item1 && start.Item2 == tile.Item2)
+                (int, int) tile = new(directedPath[i].row, directedPath[i].column);
+                if (solutions.Contains(tile))
                     continue;
                 obstacles.Add(tile);
-                CountPath(out bool isLoop);
+                CountPath(out bool isLoop, new() { new(start.row, start.column, 0) });
                 if (isLoop)
-                    sum++;
+                    solutions.Add(tile);
                 obstacles.Remove(tile);
             }
-            return sum;
+            return solutions.Count;
         }
     }
 }

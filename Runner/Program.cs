@@ -74,14 +74,14 @@ Console.WriteLine("Day 06 part 1");
 Console.WriteLine("Count length of the path on a map until is out of bounds:");
 Parser day06 = new("06");
 SecurityMap map = day06.Parse<SecurityMap>(Parser.ParseType.All).First();
-Console.WriteLine(map.CountPath(out _).Count);
+Console.WriteLine(map.CountDefaultPath);
 
 Console.WriteLine("Day 06 part 2");
 Console.WriteLine("Count possible places to put an obstacle to make a loop:");
 Parser day06part2 = new("06part2");
 SecurityMap map2 = day06part2.Parse<SecurityMap>(Parser.ParseType.All).First();
-Console.WriteLine("[This take over a minute. Uncomment when needed]");
-//Console.WriteLine(map.CountPossibleObstructions());
+//Console.WriteLine("[This take over a minute. Uncomment when needed]");
+Console.WriteLine(map.CountPossibleObstructions());
 
 return 0;
 //Placeholders forward

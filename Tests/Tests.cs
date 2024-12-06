@@ -121,7 +121,7 @@ namespace Tests
             Parser day = new("06");
             SecurityMap d = day.Parse<SecurityMap>(Parser.ParseType.All).First();
 
-            int count = d.CountPath(out _).Count;
+            int count = d.CountDefaultPath;
 
             Assert.AreEqual(41, count);
         }
