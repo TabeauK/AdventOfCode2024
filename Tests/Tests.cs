@@ -1,4 +1,5 @@
 using Solutions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tests
 {
@@ -137,26 +138,26 @@ namespace Tests
             Assert.AreEqual(6, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay07Example()
         {
             Parser day = new("07");
-            List<Day07> d = day.Parse<Day07>(Parser.ParseType.EveryLine).ToList();
+            List<Calibration> d = day.Parse<Calibration>(Parser.ParseType.EveryLine).ToList();
 
-            int count = 0; //TODO
+            long count = d.Where(x => x.Validate).Sum(x => x.Result);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(3749, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay07Part2Example()
         {
-            Parser day = new("07part2");
-            List<Day07> d = day.Parse<Day07>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("07");
+            List<Calibration> d = day.Parse<Calibration>(Parser.ParseType.EveryLine).ToList();
 
-            int count = 0; //TODO
+            long count = d.Where(x => x.ValidateWithConcat).Sum(x => x.Result);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(11387, count);
         }
 
         // [TestMethod]

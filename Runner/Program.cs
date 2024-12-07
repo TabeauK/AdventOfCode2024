@@ -106,25 +106,26 @@ SecurityMap map2 = day06part2.Parse<SecurityMap>(Parser.ParseType.All).First();
 Console.WriteLine(map.CountPossibleObstructions());
 Console.WriteLine($"Time: {sw.Elapsed}");
 
-return 0;
-//Placeholders forward
-
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 07 part 1");
-Console.WriteLine("");
+Console.WriteLine("Sum of testValues that can be represented by mixture of addition and multiplican on right side:");
 Parser day07 = new("07");
 sw.Restart();
-List<Day07> d07 = day07.Parse<Day07>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+List<Calibration> d07 = day07.Parse<Calibration>(Parser.ParseType.EveryLine).ToList();
+Console.WriteLine(d07.Where(x => x.Validate).Sum(x => x.Result));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("Day 07 part 2");
-Console.WriteLine("");
+Console.WriteLine("Sum of testValues that can be represented by mixture of addition, multiplican and concat on right side:");
 Parser day07part2 = new("07part2");
 sw.Restart();
-List<Day07> d07p2 = day07part2.Parse<Day07>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+List<Calibration> d07p2 = day07part2.Parse<Calibration>(Parser.ParseType.EveryLine).ToList();
+Console.WriteLine(d07.Where(x => x.ValidateWithConcat).Sum(x => x.Result));
+Console.WriteLine("TOO MUCH: 472290821152500");
 Console.WriteLine($"Time: {sw.Elapsed}");
+
+return 0;
+//Placeholders forward
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 08 part 1");
