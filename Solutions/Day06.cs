@@ -91,20 +91,22 @@ namespace Solutions
 
         public int CountPossibleObstructions()
         {
+            int result = 0;
             List<(int row, int column, int direction)> directedPath = CountPath(out _, new() { new(start.row, start.column, 0) });
-            SortedSet<(int row, int column)> solutions = new();
+            SortedSet<(int row, int column)> visited = new();
             for (int i = 1; i < directedPath.Count; i++)
             {
                 (int, int) tile = new(directedPath[i].row, directedPath[i].column);
-                if (solutions.Contains(tile))
+                if (visited.Contains(tile))
                     continue;
                 obstacles.Add(tile);
-                CountPath(out bool isLoop, directedPath.Take(1).ToList());
+                CountPath(out bool isLoop, directedPath.Take(i).ToList());
                 if (isLoop)
-                    solutions.Add(tile);
+                    result++;
+                visited.Add(tile);
                 obstacles.Remove(tile);
             }
-            return solutions.Count;
+            return result;
         }
     }
 }
