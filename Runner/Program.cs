@@ -124,25 +124,25 @@ Console.WriteLine(d07.Where(x => x.ValidateWithConcat).Sum(x => x.Result));
 Console.WriteLine("TOO MUCH: 472290821152500");
 Console.WriteLine($"Time: {sw.Elapsed}");
 
-return 0;
-//Placeholders forward
-
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 08 part 1");
-Console.WriteLine("");
+Console.WriteLine("Find number unique antinodes created from every two antennas (2 per pair):");
 Parser day08 = new("08");
 sw.Restart();
-List<Day08> d08 = day08.Parse<Day08>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+AntennasMap aMap = day08.Parse<AntennasMap>(Parser.ParseType.All).First();
+Console.WriteLine(aMap.GetValidUniqueAntinodes(anyGridPosition: false));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("Day 08 part 2");
-Console.WriteLine("");
+Console.WriteLine("Find number unique antinodes created from every two antennas (line per pair):");
 Parser day08part2 = new("08part2");
 sw.Restart();
-List<Day08> d08p2 = day08part2.Parse<Day08>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+AntennasMap aMap2 = day08part2.Parse<AntennasMap>(Parser.ParseType.All).First();
+Console.WriteLine(aMap2.GetValidUniqueAntinodes(anyGridPosition: true));
 Console.WriteLine($"Time: {sw.Elapsed}");
+
+return 0;
+//Placeholders forward
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 09 part 1");

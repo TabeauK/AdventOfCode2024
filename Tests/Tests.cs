@@ -20,7 +20,7 @@ namespace Tests
         [TestMethod]
         public void TestDay01Part2Example()
         {
-            Parser day01 = new("01part2");
+            Parser day01 = new("01");
             List<LocationsColumns> locations = day01.Parse<LocationsColumns>(Parser.ParseType.Columns).ToList();
 
             int diff = LocationsColumns.SimilarityScore(locations[0], locations[1]);
@@ -86,7 +86,7 @@ namespace Tests
         [TestMethod]
         public void TestDay04Part2Example()
         {
-            Parser day = new("04part2");
+            Parser day = new("04");
             Wordsearch ws = day.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
 
             int count = ws.SearchX_MAS();
@@ -108,7 +108,7 @@ namespace Tests
         [TestMethod]
         public void TestDay05Part2Example()
         {
-            Parser day = new("05part2");
+            Parser day = new("05");
             ManualUpdates d = day.Parse<ManualUpdates>(Parser.ParseType.All).First();
 
             int count = d.GetSumOfMiddleElemntsFromFixedIncorrectRules();
@@ -130,7 +130,7 @@ namespace Tests
         [TestMethod]
         public void TestDay06Part2Example()
         {
-            Parser day = new("06part2");
+            Parser day = new("06");
             SecurityMap d = day.Parse<SecurityMap>(Parser.ParseType.All).First();
 
             int count = d.CountPossibleObstructions();
@@ -160,26 +160,26 @@ namespace Tests
             Assert.AreEqual(11387, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay08Example()
         {
             Parser day = new("08");
-            List<Day08> d = day.Parse<Day08>(Parser.ParseType.EveryLine).ToList();
+            AntennasMap d = day.Parse<AntennasMap>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.GetValidUniqueAntinodes(anyGridPosition: false);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(14, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay08Part2Example()
         {
-            Parser day = new("08part2");
-            List<Day08> d = day.Parse<Day08>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("08");
+            AntennasMap d = day.Parse<AntennasMap>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.GetValidUniqueAntinodes(anyGridPosition: true);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(34, count);
         }
 
         // [TestMethod]
