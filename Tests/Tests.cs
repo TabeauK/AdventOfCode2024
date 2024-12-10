@@ -182,48 +182,59 @@ namespace Tests
             Assert.AreEqual(34, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay09Example()
         {
             Parser day = new("09");
-            List<Day09> d = day.Parse<Day09>(Parser.ParseType.EveryLine).ToList();
+            Filesystem d = day.Parse<Filesystem>(Parser.ParseType.OneLine).First();
 
-            int count = 0; //TODO
+            long count = d.CheckSum(wholeFiles: false);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(1928, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay09Part2Example()
         {
-            Parser day = new("09part2");
-            List<Day09> d = day.Parse<Day09>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("09");
+            Filesystem d = day.Parse<Filesystem>(Parser.ParseType.OneLine).First();
 
-            int count = 0; //TODO
+            long count = d.CheckSum(wholeFiles: true);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(2858, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay10Example()
         {
             Parser day = new("10");
-            List<Day10> d = day.Parse<Day10>(Parser.ParseType.EveryLine).ToList();
+            TopographicMap d = day.Parse<TopographicMap>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.SumTrailheads();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(36, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay10Part2Example()
         {
-            Parser day = new("10part2");
-            List<Day10> d = day.Parse<Day10>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("10");
+            TopographicMap d = day.Parse<TopographicMap>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.SumDistinctPaths();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(81, count);
+        }
+
+        [TestMethod]
+        public void TestDay10Part2Example2()
+        {
+            Parser day = new("10e2");
+            TopographicMap d = day.Parse<TopographicMap>(Parser.ParseType.All).First();
+
+            int count = d.SumDistinctPaths();
+
+            Assert.AreEqual(227, count);
         }
 
         // [TestMethod]

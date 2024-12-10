@@ -12,6 +12,7 @@ sw.Restart();
 List<LocationsColumns> locations = day01.Parse<LocationsColumns>(Parser.ParseType.Columns).ToList();
 Console.WriteLine(LocationsColumns.Compare(locations[0], locations[1]));
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 01 part 2");
 Console.WriteLine("Sum of how many times locations from left are in right list (times their value):");
@@ -29,6 +30,7 @@ sw.Restart();
 List<Raport> raports = day02.Parse<Raport>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine(raports.Count(x => x.IsCorrect()));
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 02 part 2");
 Console.WriteLine("How many raports are correct with OneOffTolerance? (Fully Asc/Desc with <1,3> diff)");
@@ -46,6 +48,7 @@ sw.Restart();
 OperetionCommand command = day03.Parse<OperetionCommand>(Parser.ParseType.OneLine).First();
 Console.WriteLine(command.Count);
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 03 part 2");
 Console.WriteLine("Regex mul command and sum their results. Turn operation on or off if command 'do' or 'don't' preceeds it:");
@@ -63,6 +66,7 @@ sw.Restart();
 Wordsearch ws = day04.Parse<Wordsearch>(Parser.ParseType.MultiLine).First();
 Console.WriteLine(ws.SearchXMAS());
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 04 part 2");
 Console.WriteLine("Find X shape of 'MAS' in wordsearch:");
@@ -80,6 +84,7 @@ sw.Restart();
 ManualUpdates manualUpdates = day05.Parse<ManualUpdates>(Parser.ParseType.All).First();
 Console.WriteLine(manualUpdates.GetSumOfMiddleElemntsFromCorrectRules);
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 05 part 2");
 Console.WriteLine("Sum middle elemnts of fixed incorrect updates:");
@@ -97,6 +102,7 @@ sw.Restart();
 SecurityMap map = day06.Parse<SecurityMap>(Parser.ParseType.All).First();
 Console.WriteLine(map.CountDefaultPath);
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 06 part 2");
 Console.WriteLine("Count possible places to put an obstacle to make a loop:");
@@ -114,6 +120,7 @@ sw.Restart();
 List<Calibration> d07 = day07.Parse<Calibration>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine(d07.Where(x => x.Validate).Sum(x => x.Result));
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 07 part 2");
 Console.WriteLine("Sum of testValues that can be represented by mixture of addition, multiplican and concat on right side:");
@@ -132,6 +139,7 @@ sw.Restart();
 AntennasMap aMap = day08.Parse<AntennasMap>(Parser.ParseType.All).First();
 Console.WriteLine(aMap.GetValidUniqueAntinodes(anyGridPosition: false));
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 08 part 2");
 Console.WriteLine("Find number unique antinodes created from every two antennas (line per pair):");
@@ -141,34 +149,58 @@ AntennasMap aMap2 = day08part2.Parse<AntennasMap>(Parser.ParseType.All).First();
 Console.WriteLine(aMap2.GetValidUniqueAntinodes(anyGridPosition: true));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
-return 0;
-//Placeholders forward
-
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 09 part 1");
-Console.WriteLine("");
+Console.WriteLine("Optimize disk usage by defragmentation and filling blanks. Calculate checksum:");
 Parser day09 = new("09");
 sw.Restart();
-List<Day09> d09 = day09.Parse<Day09>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+Filesystem filesystem = day09.Parse<Filesystem>(Parser.ParseType.OneLine).First();
+Console.WriteLine(filesystem.CheckSum(wholeFiles: false));
+Console.WriteLine("TOO LOW: 3360369741511");
+Console.WriteLine("TOO LOW: 6107001327303");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 09 part 2");
-Console.WriteLine("");
+Console.WriteLine("Optimize disk usage by moving blocks and filling blanks. Calculate checksum:");
 Parser day09part2 = new("09part2");
 sw.Restart();
-List<Day09> d09p2 = day09part2.Parse<Day09>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+Filesystem filesystem2 = day09part2.Parse<Filesystem>(Parser.ParseType.OneLine).First();
+Console.WriteLine(filesystem2.CheckSum(wholeFiles: true));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 10 part 1");
-Console.WriteLine("");
+Console.WriteLine("Sum how many peaks are available from trailheads:");
 Parser day10 = new("10");
 sw.Restart();
-List<Day10> d10 = day10.Parse<Day10>(Parser.ParseType.EveryLine).ToList();
+TopographicMap tMap = day10.Parse<TopographicMap>(Parser.ParseType.All).First();
+Console.WriteLine(tMap.SumTrailheads());
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 10 part 2");
+Console.WriteLine("Sum how many paths are available from trailheads:");
+Parser day10part2 = new("10part2");
+sw.Restart();
+TopographicMap tMap2 = day10part2.Parse<TopographicMap>(Parser.ParseType.All).First();
+Console.WriteLine(tMap2.SumDistinctPaths());
+Console.WriteLine("TOO HIGH: 14320");
+Console.WriteLine("TOO HIGH: 14020");
+Console.WriteLine($"Time: {sw.Elapsed}");
+
+return 0;
+//Placeholders for solutions
+
+Console.WriteLine("--------------------------------------------------");
+Console.WriteLine("Day 11 part 1");
+Console.WriteLine("");
+Parser day11 = new("11");
+sw.Restart();
+List<Day11> d11 = day11.Parse<Day11>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 11 part 2");
 Console.WriteLine("");
@@ -186,6 +218,7 @@ sw.Restart();
 List<Day12> d12 = day12.Parse<Day12>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 12 part 2");
 Console.WriteLine("");
@@ -203,6 +236,7 @@ sw.Restart();
 List<Day13> d13 = day13.Parse<Day13>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 13 part 2");
 Console.WriteLine("");
@@ -220,6 +254,7 @@ sw.Restart();
 List<Day14> d14 = day14.Parse<Day14>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 14 part 2");
 Console.WriteLine("");
@@ -237,6 +272,7 @@ sw.Restart();
 List<Day15> d15 = day15.Parse<Day15>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 15 part 2");
 Console.WriteLine("");
@@ -254,6 +290,7 @@ sw.Restart();
 List<Day16> d16 = day16.Parse<Day16>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 16 part 2");
 Console.WriteLine("");
@@ -271,6 +308,7 @@ sw.Restart();
 List<Day17> d17 = day17.Parse<Day17>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 17 part 2");
 Console.WriteLine("");
@@ -288,6 +326,7 @@ sw.Restart();
 List<Day18> d18 = day18.Parse<Day18>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 18 part 2");
 Console.WriteLine("");
@@ -305,6 +344,7 @@ sw.Restart();
 List<Day19> d19 = day19.Parse<Day19>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 19 part 2");
 Console.WriteLine("");
@@ -322,6 +362,7 @@ sw.Restart();
 List<Day20> d20 = day20.Parse<Day20>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 20 part 2");
 Console.WriteLine("");
@@ -339,6 +380,7 @@ sw.Restart();
 List<Day21> d21 = day21.Parse<Day21>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 21 part 2");
 Console.WriteLine("");
@@ -356,6 +398,7 @@ sw.Restart();
 List<Day22> d22 = day22.Parse<Day22>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 22 part 2");
 Console.WriteLine("");
@@ -373,6 +416,7 @@ sw.Restart();
 List<Day23> d23 = day23.Parse<Day23>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 23 part 2");
 Console.WriteLine("");
@@ -390,6 +434,7 @@ sw.Restart();
 List<Day24> d24 = day24.Parse<Day24>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 24 part 2");
 Console.WriteLine("");
@@ -407,6 +452,7 @@ sw.Restart();
 List<Day25> d25 = day25.Parse<Day25>(Parser.ParseType.EveryLine).ToList();
 Console.WriteLine("");
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 25 part 2");
 Console.WriteLine("");
