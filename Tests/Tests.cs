@@ -237,26 +237,27 @@ namespace Tests
             Assert.AreEqual(227, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay11Example()
         {
             Parser day = new("11");
-            List<Day11> d = day.Parse<Day11>(Parser.ParseType.EveryLine).ToList();
+            Stones d = day.Parse<Stones>(Parser.ParseType.OneLine).First();
 
-            int count = 0; //TODO
+            long count = d.Blink25;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(55312, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay11Part2Example()
         {
-            Parser day = new("11part2");
-            List<Day11> d = day.Parse<Day11>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("11");
+            Stones d = day.Parse<Stones>(Parser.ParseType.OneLine).First();
 
-            int count = 0; //TODO
+            long count = d.Blink75;
 
-            Assert.AreEqual(0, count);
+            // This is only stres test
+            Assert.IsTrue(count > 0);
         }
 
         // [TestMethod]

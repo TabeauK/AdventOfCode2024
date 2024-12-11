@@ -189,26 +189,26 @@ Console.WriteLine("TOO HIGH: 14320");
 Console.WriteLine("TOO HIGH: 14020");
 Console.WriteLine($"Time: {sw.Elapsed}");
 
-return 0;
-//Placeholders for solutions
-
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 11 part 1");
-Console.WriteLine("");
+Console.WriteLine("Stones either multiply or split into 2. Count of them after 25 cycles:");
 Parser day11 = new("11");
 sw.Restart();
-List<Day11> d11 = day11.Parse<Day11>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+Stones stones = day11.Parse<Stones>(Parser.ParseType.OneLine).First();
+Console.WriteLine(stones.Blink25);
 Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
 
 Console.WriteLine("Day 11 part 2");
-Console.WriteLine("");
+Console.WriteLine("Stones either multiply or split into 2. Count of them after 75 cycles:");
 Parser day11part2 = new("11part2");
 sw.Restart();
-List<Day11> d11p2 = day11part2.Parse<Day11>(Parser.ParseType.EveryLine).ToList();
-Console.WriteLine("");
+Stones stones2 = day11part2.Parse<Stones>(Parser.ParseType.OneLine).First();
+Console.WriteLine(stones2.Blink75);
 Console.WriteLine($"Time: {sw.Elapsed}");
+
+return 0;
+//Placeholders for solutions
 
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Day 12 part 1");
