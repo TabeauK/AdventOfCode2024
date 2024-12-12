@@ -10,6 +10,8 @@
 
         List<(int row, int column)> trailheads = new();
 
+        bool scoreCounted = false;
+
         readonly List<(int, int)> directions = new()
         {
             (-1, 0),
@@ -85,6 +87,11 @@
         // BFS
         void CountScore()
         {
+            // Count once
+            if (scoreCounted)
+                return;
+            scoreCounted = true;
+
             HashSet<(int, int)> enqueued = new();
             Queue<(int, int)> points = new(peaks);
             while (points.Count > 0)

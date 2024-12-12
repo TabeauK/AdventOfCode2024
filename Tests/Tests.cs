@@ -260,26 +260,26 @@ namespace Tests
             Assert.IsTrue(count > 0);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay12Example()
         {
             Parser day = new("12");
-            List<Day12> d = day.Parse<Day12>(Parser.ParseType.EveryLine).ToList();
+            Garden d = day.Parse<Garden>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            long count = d.FenceCost(sides: false);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(1930, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay12Part2Example()
         {
-            Parser day = new("12part2");
-            List<Day12> d = day.Parse<Day12>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("12");
+            Garden d = day.Parse<Garden>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            long count = d.FenceCost(sides: true);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(1206, count);
         }
 
         // [TestMethod]

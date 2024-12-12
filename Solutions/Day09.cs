@@ -3,7 +3,7 @@
     public class Filesystem : IMyParsable<Filesystem>
     {
         // index, id, length
-        SortedDictionary<long, (long id, long length)> blocks = new();
+        SortedDictionary<long, (long id, long length)> originalBlocks = new();
 
         // index, length
         SortedDictionary<long, long> freeSpaces = new();
@@ -40,14 +40,15 @@
             }
             return new()
             {
-                blocks = blocks,
+                originalBlocks = blocks,
                 freeSpaces = freeSpaces,
                 freeBlocks= freeBlocks,
             };
         }
 
-        public void Optimize()
+        public SortedDictionary<long, (long id, long length)> Optimize()
         {
+            SortedDictionary<long, (long id, long length)> blocks = new(originalBlocks);
             while (freeSpaces.Count > 0)
             {
                 var space = freeSpaces.First();
@@ -77,10 +78,12 @@
                 }
                 freeSpaces.Remove(space.Key);
             }
+            return blocks;
         }
 
-        public void OptimizeBigFiles()
+        public SortedDictionary<long, (long id, long length)>  OptimizeBigFiles()
         {
+            SortedDictionary<long, (long id, long length)> blocks = new(originalBlocks);
             var b = blocks.Reverse().GetEnumerator();
             do
             {
@@ -101,14 +104,16 @@
                     freeBlocks[spaceLength].Remove(freeBlocks[spaceLength].First());
                 }
             } while (b.MoveNext());
+            return blocks;
         }
 
         public long CheckSum(bool wholeFiles)
         {
+            SortedDictionary<long, (long id, long length)> blocks;
             if (wholeFiles)
-                OptimizeBigFiles();
+                blocks = OptimizeBigFiles();
             else
-                Optimize();
+                blocks = Optimize();
             long sum = 0;
             foreach (var block in blocks)
                 sum += (2 * block.Key + block.Value.length - 1) * block.Value.id * block.Value.length / 2;
