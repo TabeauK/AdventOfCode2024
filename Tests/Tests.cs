@@ -288,20 +288,20 @@ namespace Tests
             Parser day = new("13");
             List<ClawMachine> d = day.Parse<ClawMachine>(Parser.ParseType.MultiLine).ToList();
 
-            int count = ClawMachine.SumMinCosts(d);
+            long count = ClawMachine.SumMinCosts(d, bigPrize: false);
 
             Assert.AreEqual(480, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay13Part2Example()
         {
-            Parser day = new("13part2");
+            Parser day = new("13");
             List<ClawMachine> d = day.Parse<ClawMachine>(Parser.ParseType.MultiLine).ToList();
 
-            int count = 0; //TODO
+            long count = ClawMachine.SumMinCosts(d, bigPrize: true);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(18386836764380216, count);
         }
 
         // [TestMethod]

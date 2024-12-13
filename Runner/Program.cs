@@ -214,23 +214,26 @@ Parser day13 = new("13");
 List<ClawMachine> clawMachines = day13.Parse<ClawMachine>(Parser.ParseType.MultiLine).ToList();
 
 Console.WriteLine("Day 13 part 1");
-Console.WriteLine("Sum the min cost of przie which is a combination of cost A nad cost B:");
+Console.WriteLine("Sum the min cost of prize which is a combination of cost A nad cost B:");
 sw.Restart();
-Console.WriteLine(ClawMachine.SumMinCosts(clawMachines));
+Console.WriteLine(ClawMachine.SumMinCosts(clawMachines, bigPrize: false));
 Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
+
+Console.WriteLine("Day 13 part 2");
+Console.WriteLine("Sum the min cost of prize which is a combination of cost A nad cost B. Prize is huge:");
+sw.Restart();
+Console.WriteLine(ClawMachine.SumMinCosts(clawMachines, bigPrize: true));
+Console.WriteLine($"Time: {sw.Elapsed}");
+// 150257159727038
+// 
+// 47368845633010
 
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("Day 13 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day14 = new("14");
