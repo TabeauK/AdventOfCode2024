@@ -282,22 +282,22 @@ namespace Tests
             Assert.AreEqual(1206, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay13Example()
         {
             Parser day = new("13");
-            List<Day13> d = day.Parse<Day13>(Parser.ParseType.EveryLine).ToList();
+            List<ClawMachine> d = day.Parse<ClawMachine>(Parser.ParseType.MultiLine).ToList();
 
-            int count = 0; //TODO
+            int count = ClawMachine.SumMinCosts(d);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(480, count);
         }
 
         // [TestMethod]
         public void TestDay13Part2Example()
         {
             Parser day = new("13part2");
-            List<Day13> d = day.Parse<Day13>(Parser.ParseType.EveryLine).ToList();
+            List<ClawMachine> d = day.Parse<ClawMachine>(Parser.ParseType.MultiLine).ToList();
 
             int count = 0; //TODO
 

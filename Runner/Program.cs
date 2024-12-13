@@ -209,22 +209,22 @@ sw.Restart();
 Console.WriteLine(garden.FenceCost(sides: true));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day13 = new("13");
+List<ClawMachine> clawMachines = day13.Parse<ClawMachine>(Parser.ParseType.MultiLine).ToList();
+
+Console.WriteLine("Day 13 part 1");
+Console.WriteLine("Sum the min cost of przie which is a combination of cost A nad cost B:");
+sw.Restart();
+Console.WriteLine(ClawMachine.SumMinCosts(clawMachines));
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day13 = new("13");
-List<Day13> d13 = day13.Parse<Day13>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 13 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
 
 Console.WriteLine("Day 13 part 2");
 Console.WriteLine("");

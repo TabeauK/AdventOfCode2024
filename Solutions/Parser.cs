@@ -51,7 +51,10 @@ namespace Solutions
                     List<string> multiline = new();
                     foreach (var input in inputs)
                         if (string.IsNullOrEmpty(input))
+                        {
                             list.Add(T.ParseMultiline(multiline));
+                            multiline.Clear();
+                        }
                         else
                             multiline.Add(input);
                     if(multiline.Count > 0)
