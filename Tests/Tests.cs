@@ -301,29 +301,18 @@ namespace Tests
 
             long count = ClawMachine.SumMinCosts(d, bigPrize: true);
 
-            Assert.AreEqual(18386836764380216, count);
+            Assert.AreEqual(875318608908, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay14Example()
         {
             Parser day = new("14");
-            List<Day14> d = day.Parse<Day14>(Parser.ParseType.EveryLine).ToList();
+            List<SecurityRobot> d = day.Parse<SecurityRobot>(Parser.ParseType.EveryLine).ToList();
 
-            int count = 0; //TODO
+            int count = SecurityRobot.MultiplyQuadrants(d, 11, 7);
 
-            Assert.AreEqual(0, count);
-        }
-
-        // [TestMethod]
-        public void TestDay14Part2Example()
-        {
-            Parser day = new("14part2");
-            List<Day14> d = day.Parse<Day14>(Parser.ParseType.EveryLine).ToList();
-
-            int count = 0; //TODO
-
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(12, count);
         }
 
         // [TestMethod]
