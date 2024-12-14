@@ -225,32 +225,29 @@ Console.WriteLine("Sum the min cost of prize which is a combination of cost A na
 sw.Restart();
 Console.WriteLine(ClawMachine.SumMinCosts(clawMachines, bigPrize: true));
 Console.WriteLine($"Time: {sw.Elapsed}");
-// 150257159727038
-// 
-// 47368845633010
+
+Console.WriteLine("--------------------------------------------------");
+Parser day14 = new("14");
+List<SecurityRobot> securityRobots = day14.Parse<SecurityRobot>(Parser.ParseType.EveryLine).ToList();
+
+Console.WriteLine("Day 14 part 1");
+Console.WriteLine("Sum the number of robots in each quadrant after 100 sec:");
+sw.Restart();
+Console.WriteLine(SecurityRobot.MultiplyQuadrants(securityRobots, 101, 103));
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 14 part 2");
+Console.WriteLine("Find easter egg in robots cycles:");
+sw.Restart();
+Console.WriteLine(SecurityRobot.PrintPositions(securityRobots));
+Console.WriteLine($"Time: {sw.Elapsed}");
 
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day14 = new("14");
-List<Day14> d14 = day14.Parse<Day14>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 14 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 14 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day15 = new("15");
