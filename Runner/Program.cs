@@ -243,28 +243,28 @@ sw.Restart();
 Console.WriteLine(SecurityRobot.PrintPositions(securityRobots));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day15 = new("15");
+Warehouse warehouse = day15.Parse<Warehouse>(Parser.ParseType.All).First();
+
+Console.WriteLine("Day 15 part 1");
+Console.WriteLine("State of the warehouse after robots complete all its moves:");
+sw.Restart();
+Console.WriteLine(warehouse.MoveRobot());
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 15 part 2");
+Console.WriteLine("State of the 2*wider warehouse after robots complete all its moves:");
+sw.Restart();
+Console.WriteLine(warehouse.MoveSecondRobot());
+Console.WriteLine($"Time: {sw.Elapsed}");
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day15 = new("15");
-List<Day15> d15 = day15.Parse<Day15>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 15 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 15 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day16 = new("16");

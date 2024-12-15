@@ -315,26 +315,48 @@ namespace Tests
             Assert.AreEqual(12, count);
         }
 
-        // [TestMethod]
-        public void TestDay15Example()
+        [TestMethod]
+        public void TestDay15ExampleBig()
         {
-            Parser day = new("15");
-            List<Day15> d = day.Parse<Day15>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("15Big");
+            Warehouse d = day.Parse<Warehouse>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.MoveRobot();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(10092, count);
         }
 
-        // [TestMethod]
-        public void TestDay15Part2Example()
+        [TestMethod]
+        public void TestDay15ExampleSmall()
         {
-            Parser day = new("15part2");
-            List<Day15> d = day.Parse<Day15>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("15Small");
+            Warehouse d = day.Parse<Warehouse>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.MoveRobot();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(2028, count);
+        }
+
+        [TestMethod]
+        public void TestDay15Part2Small()
+        {
+            Parser day = new("15Small2");
+            Warehouse d = day.Parse<Warehouse>(Parser.ParseType.All).First();
+
+            int count = d.MoveSecondRobot();
+
+            Assert.AreEqual(618, count);
+        }
+
+        [TestMethod]
+        public void TestDay15Part2Big()
+        {
+            Parser day = new("15Big");
+            Warehouse d = day.Parse<Warehouse>(Parser.ParseType.All).First();
+
+            int count = d.MoveSecondRobot();
+
+            Assert.AreEqual(9021, count);
         }
 
         // [TestMethod]
