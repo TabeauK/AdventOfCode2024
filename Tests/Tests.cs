@@ -359,26 +359,48 @@ namespace Tests
             Assert.AreEqual(9021, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay16Example()
         {
             Parser day = new("16");
-            List<Day16> d = day.Parse<Day16>(Parser.ParseType.EveryLine).ToList();
+            Maze d = day.Parse<Maze>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.MinPath;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(7036, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
+        public void TestDay16Example2()
+        {
+            Parser day = new("16example2");
+            Maze d = day.Parse<Maze>(Parser.ParseType.All).First();
+
+            int count = d.MinPath;
+
+            Assert.AreEqual(11048, count);
+        }
+
+        [TestMethod]
         public void TestDay16Part2Example()
         {
-            Parser day = new("16part2");
-            List<Day16> d = day.Parse<Day16>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("16");
+            Maze d = day.Parse<Maze>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.CountAllPaths();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(45, count);
+        }
+
+        [TestMethod]
+        public void TestDay16Part2Example2()
+        {
+            Parser day = new("16example2");
+            Maze d = day.Parse<Maze>(Parser.ParseType.All).First();
+
+            int count = d.CountAllPaths();
+
+            Assert.AreEqual(64, count);
         }
 
         // [TestMethod]

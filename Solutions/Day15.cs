@@ -136,12 +136,11 @@ namespace Solutions
         }
 
         // Part 2
-        List<((int X, int Y), (int X, int Y))> CanMoveBigBox(int direction, (int X, int Y) ob, ref List<((int X, int Y), (int X, int Y))> boxes, out bool canRobotMove)
+        bool CanMoveBigBox(int direction, (int X, int Y) ob, ref List<((int X, int Y), (int X, int Y))> boxes, out List<((int X, int Y), (int X, int Y))> boxesToMove)
         {
             Stack<(int X, int Y)> stack = new();
             HashSet<((int X, int Y), (int X, int Y))> queued = new();
             stack.Push(ob);
-            canRobotMove = true;
             while (stack.Count > 0)
             {
                 (int X, int Y) = stack.Pop();
@@ -150,8 +149,8 @@ namespace Solutions
                 // Check for wall
                 if (secondWalls.Contains(nextOb))
                 {
-                    canRobotMove = false;
-                    return new();
+                    boxesToMove = new();
+                    return false;
                 }
 
                 // Check for another box
@@ -180,7 +179,8 @@ namespace Solutions
                     stack.Push(box.Item2);
                 }
             }
-            return queued.ToList();
+            boxesToMove = queued.ToList();
+            return true;
         }
 
         public int MoveSecondRobot()
@@ -189,14 +189,13 @@ namespace Solutions
             (int X, int Y) robotPosition = secondStartRobot;
             foreach (int d in robotMoves)
             {
-                var boxesToMove = CanMoveBigBox(d, robotPosition, ref boxes, out bool canRobotMove);
+                if(CanMoveBigBox(d, robotPosition, ref boxes, out List<((int X, int Y), (int X, int Y))> boxesToMove))
+                    robotPosition = (robotPosition.X + directions[d].X, robotPosition.Y + directions[d].Y);
                 foreach (var b in boxesToMove)
                 {
                     boxes.Add(((b.Item1.X + directions[d].X, b.Item1.Y + directions[d].Y), (b.Item2.X + directions[d].X, b.Item2.Y + directions[d].Y)));
                     boxes.Remove(b);
                 }
-                if (canRobotMove)
-                    robotPosition = (robotPosition.X + directions[d].X, robotPosition.Y + directions[d].Y);
             }
             return boxes.Sum(x => x.Item1.X + x.Item2.Y * 100);
         }

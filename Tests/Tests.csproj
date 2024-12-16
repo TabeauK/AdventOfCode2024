@@ -81,10 +81,10 @@
     <None Update="inputs\15Big.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="inputs\16.txt">
+    <None Update="inputs\16example2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="inputs\16part2.txt">
+    <None Update="inputs\16.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="inputs\17.txt">
