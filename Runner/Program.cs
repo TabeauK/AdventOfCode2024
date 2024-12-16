@@ -261,20 +261,21 @@ Console.WriteLine(warehouse.MoveSecondRobot());
 Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
+Console.WriteLine("**Too tired to optimize**");
 Parser day16 = new("16");
 Maze maze = day16.Parse<Maze>(Parser.ParseType.All).First();
 
 Console.WriteLine("Day 16 part 1");
-Console.WriteLine("");
-sw.Restart();
 Console.WriteLine("Find lowest cost path in a maze:");
+sw.Restart();
 Console.WriteLine(maze.MinPath);
 Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
 
 Console.WriteLine("Day 16 part 2");
 Console.WriteLine("Find all lowest cost paths in a maze:");
 sw.Restart();
-Console.WriteLine(maze.CountAllPaths());
+Console.WriteLine(maze.AllPaths);
 Console.WriteLine($"Time: {sw.Elapsed}");
 
 // Finish

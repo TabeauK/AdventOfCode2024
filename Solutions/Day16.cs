@@ -10,6 +10,30 @@ namespace Solutions
         (int X, int Y) end;
         int initialDirection = 1;
 
+        int? minPath;
+
+        int? allPaths;
+
+        public int MinPath
+        {
+            get
+            {
+                if (!minPath.HasValue)
+                    CountAllPaths();
+                return minPath!.Value;
+            }
+        }
+
+        public int AllPaths
+        {
+            get
+            {
+                if (!allPaths.HasValue)
+                    CountAllPaths();
+                return allPaths!.Value;
+            }
+        }
+
         readonly List<(int X, int Y)> directions = new()
         {
             new(0, -1), // UP
@@ -63,69 +87,61 @@ namespace Solutions
             };
         }
 
-        public int CountAllPaths()
+        public void CountAllPaths()
         {
-            FindPath(out Dictionary<(int X, int Y), List<(int X, int Y)>> backtrack);
+            int score = FindPath(out Dictionary<((int X, int Y), int direction, int score), List<((int X, int Y), int direction, int score)>> backtrack);
             HashSet<(int X, int Y)> visited = new();
-            Stack<(int X, int Y)> stack = new();
-            stack.Push(end);
-            while(stack.Count > 0)
-            {
-                var item = stack.Pop();
-                visited.Add(item);
-                if (backtrack.TryGetValue(item, out List<(int X, int Y)> prevs))
-                    foreach (var prev in prevs)
-                        if (!visited.Contains(prev))
-                        {
-                            stack.Push(prev);
-                            visited.Add(item);
-                        }
-            }
-            return visited.Count;
-        }
-
-
-        public int MinPath => FindPath(out _);
-
-        int FindPath(out Dictionary<(int X, int Y), List<(int X, int Y)>> prevs)
-        {
-            int? minScore = null;
-
-            prevs = new();
-            Dictionary<(int X, int Y), int> visited = new() { { start, 0 } };
-
-            Queue<(int X, int Y, int direction, int score)> stack = new();
-            stack.Enqueue((start.X, start.Y, initialDirection, 0));
+            Stack<((int X, int Y) node, int direction, int score)> stack = new();
+            stack.Push((end, 0, score));
             while (stack.Count > 0)
             {
-                (int X, int Y, int direction, int score) = stack.Dequeue();
+                var item = stack.Pop();
+                if (!backtrack.ContainsKey(item))
+                    continue;
+                visited.Add(item.node);
+                foreach (var elem in backtrack[item])
+                    if (!stack.Contains(elem))
+                        stack.Push(elem);
+            }
+            minPath = score;
+            allPaths = visited.Count;
+            return;
+        }
+
+        int FindPath(out Dictionary<((int X, int Y), int direction, int score), List<((int X, int Y), int direction, int score)>> prevs)
+        {
+            prevs = new() { { (start, initialDirection, 0), new() } };
+
+            Queue<((int X, int Y), int direction, int score)> stack = new();
+            stack.Enqueue((start, initialDirection, 0));
+            while (stack.Count > 0)
+            {
+                ((int X, int Y), int direction, int score) = stack.Dequeue();
                 while (true)
                 {
                     // Check one side
                     (int X, int Y) next = (X + directions[(direction + 3) % 4].X, Y + directions[(direction + 3) % 4].Y);
                     if (edges[(X, Y)].Contains(next))
                     {
-                        if (!visited.ContainsKey(next))
+                        if (!prevs.ContainsKey((next, (direction + 3) % 4, score + 1001)))
                         {
-                            stack.Enqueue((next.X, next.Y, (direction + 3) % 4, score + 1001));
-                            visited[next] = score + 1001;
-                            prevs[next] = new() { (X, Y) };
+                            stack.Enqueue((next, (direction + 3) % 4, score + 1001));
+                            prevs[(next, (direction + 3) % 4, score + 1001)] = new() { ((X, Y), direction, score) };
                         }
-                        else if (visited[next] == score + 1001)
-                            prevs[next].Add((X, Y)); // Add another solution
+                        else
+                            prevs[(next, (direction + 3) % 4, score + 1001)].Add(((X, Y), direction, score)); // Add another solution
                     }
                     // Check other side
                     next = (X + directions[(direction + 1) % 4].X, Y + directions[(direction + 1) % 4].Y);
                     if (edges[(X, Y)].Contains(next))
                     {
-                        if (!visited.ContainsKey(next))
+                        if (!prevs.ContainsKey((next, (direction + 1) % 4, score + 1001)))
                         {
-                            stack.Enqueue((next.X, next.Y, (direction + 1) % 4, score + 1001));
-                            visited[next] = score + 1001;
-                            prevs[next] = new() { (X, Y) };
+                            stack.Enqueue((next, (direction + 1) % 4, score + 1001));
+                            prevs[(next, (direction + 1) % 4, score + 1001)] = new() { ((X, Y), direction, score) };
                         }
-                        else if (visited[next] == score + 1001)
-                            prevs[next].Add((X, Y)); // Add another solution
+                        else
+                            prevs[(next, (direction + 1) % 4, score + 1001)].Add(((X, Y), direction, score)); // Add another solution
                     }
 
                     next = (X + directions[direction].X, Y + directions[direction].Y);
@@ -133,29 +149,23 @@ namespace Solutions
                         break;
 
                     // Add another solution
-                    if (visited.ContainsKey(next))
+                    if (!prevs.ContainsKey((next, direction, score + 1)))
                     {
-                        if (visited[next] == score + 1)
-                            prevs[next].Add((X, Y));
-                        break;
+                        prevs[(next, direction, score + 1)] = new();
                     }
 
-                    prevs[next] = new() { (X, Y) };
+                    prevs[(next, direction, score + 1)].Add(((X, Y), direction, score));
 
                     // Move forward
-                    X = next.X; Y = next.Y; score++; visited[(X, Y)] = score;
+                    X = next.X; Y = next.Y; score++;
 
                     // Record solution
                     if (next == end)
                     {
-                        if(!minScore.HasValue)
-                            minScore = score;
-                        break;
+                        return score;
                     }
                 }
             }
-            if (minScore.HasValue)
-                return minScore.Value;
             return 0;
         }
     }

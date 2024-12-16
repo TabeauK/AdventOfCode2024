@@ -387,7 +387,7 @@ namespace Tests
             Parser day = new("16");
             Maze d = day.Parse<Maze>(Parser.ParseType.All).First();
 
-            int count = d.CountAllPaths();
+            int count = d.AllPaths;
 
             Assert.AreEqual(45, count);
         }
@@ -398,7 +398,7 @@ namespace Tests
             Parser day = new("16example2");
             Maze d = day.Parse<Maze>(Parser.ParseType.All).First();
 
-            int count = d.CountAllPaths();
+            int count = d.AllPaths;
 
             Assert.AreEqual(64, count);
         }

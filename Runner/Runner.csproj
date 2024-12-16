@@ -42,9 +42,6 @@
     <None Update="inputs\17part2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="inputs\16part2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="inputs\15part2 .txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
