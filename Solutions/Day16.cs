@@ -153,6 +153,10 @@ namespace Solutions
                     {
                         prevs[(next, direction, score + 1)] = new();
                     }
+                    else if( prevs.Keys.Any(x => x.Item1 == next && direction == x.direction && x.score <= score))
+                    {
+                        break;
+                    }
 
                     prevs[(next, direction, score + 1)].Add(((X, Y), direction, score));
 
