@@ -89,28 +89,29 @@ namespace Solutions
 
         public void CountAllPaths()
         {
-            int score = FindPath(out Dictionary<((int X, int Y), int direction, int score), List<((int X, int Y), int direction, int score)>> backtrack);
+            int score = FindPath(out Cache backtrack);
             HashSet<(int X, int Y)> visited = new();
             Stack<((int X, int Y) node, int direction, int score)> stack = new();
             stack.Push((end, 0, score));
             while (stack.Count > 0)
             {
                 var item = stack.Pop();
-                if (!backtrack.ContainsKey(item))
+                var prevs = backtrack.Get(item);
+                if (prevs.Count == 0)
                     continue;
                 visited.Add(item.node);
-                foreach (var elem in backtrack[item])
+                foreach (var elem in prevs)
                     if (!stack.Contains(elem))
                         stack.Push(elem);
             }
             minPath = score;
-            allPaths = visited.Count;
+            allPaths = visited.Count + 1;
             return;
         }
 
-        int FindPath(out Dictionary<((int X, int Y), int direction, int score), List<((int X, int Y), int direction, int score)>> prevs)
+        int FindPath(out Cache prevs)
         {
-            prevs = new() { { (start, initialDirection, 0), new() } };
+            prevs = new(this);
 
             Queue<((int X, int Y), int direction, int score)> stack = new();
             stack.Enqueue((start, initialDirection, 0));
@@ -123,36 +124,22 @@ namespace Solutions
                     (int X, int Y) next = (X + directions[(direction + 3) % 4].X, Y + directions[(direction + 3) % 4].Y);
                     if (edges[(X, Y)].Contains(next))
                     {
-                        if (!prevs.ContainsKey((next, (direction + 3) % 4, score + 1001)))
-                        {
+                        if (prevs.TryAdd((next, (direction + 3) % 4, score + 1001), ((X, Y), direction, score)))
                             stack.Enqueue((next, (direction + 3) % 4, score + 1001));
-                            prevs[(next, (direction + 3) % 4, score + 1001)] = new() { ((X, Y), direction, score) };
-                        }
-                        else
-                            prevs[(next, (direction + 3) % 4, score + 1001)].Add(((X, Y), direction, score)); // Add another solution
                     }
                     // Check other side
                     next = (X + directions[(direction + 1) % 4].X, Y + directions[(direction + 1) % 4].Y);
                     if (edges[(X, Y)].Contains(next))
                     {
-                        if (!prevs.ContainsKey((next, (direction + 1) % 4, score + 1001)))
-                        {
+                        if (prevs.TryAdd((next, (direction + 1) % 4, score + 1001), ((X, Y), direction, score)))
                             stack.Enqueue((next, (direction + 1) % 4, score + 1001));
-                            prevs[(next, (direction + 1) % 4, score + 1001)] = new() { ((X, Y), direction, score) };
-                        }
-                        else
-                            prevs[(next, (direction + 1) % 4, score + 1001)].Add(((X, Y), direction, score)); // Add another solution
                     }
 
                     next = (X + directions[direction].X, Y + directions[direction].Y);
                     if (!edges[(X, Y)].Contains(next))
                         break;
 
-                    // Go forward
-                    if (!prevs.ContainsKey((next, direction, score + 1)))
-                        prevs[(next, direction, score + 1)] = new();
-
-                    prevs[(next, direction, score + 1)].Add(((X, Y), direction, score));
+                    prevs.TryAdd((next, direction, score + 1), ((X, Y), direction, score));
                     X = next.X; Y = next.Y; score++;
 
                     // Record solution
@@ -161,6 +148,50 @@ namespace Solutions
                 }
             }
             return 0;
+        }
+
+
+        class Cache
+        {
+            readonly Dictionary<(int X, int Y), Dictionary<int, Dictionary<int, List<((int X, int Y), int direction, int score)>>>> cache;
+
+            public bool TryAdd(((int X, int Y) next, int direction, int score) key, ((int X, int Y) next, int direction, int score) value)
+            {
+                if (!cache.ContainsKey(key.next))
+                    cache[key.next] = new();
+                if (!cache[key.next].ContainsKey(key.direction))
+                    cache[key.next][key.direction] = new();
+
+                if (cache[key.next][key.direction].Any(x => x.Key < value.score))
+                    return false;
+
+                if (!cache[key.next][key.direction].ContainsKey(key.score))
+                    cache[key.next][key.direction][key.score] = new();
+                if (!cache[key.next][key.direction][key.score].Contains(value))
+                    cache[key.next][key.direction][key.score].Add(value);
+                else
+                    return false;
+                return true;
+            }
+
+            public List<((int X, int Y), int direction, int score)> Get(((int X, int Y) next, int direction, int score) key)
+            {
+                if (!cache.ContainsKey(key.next))
+                    return new();
+                if (!cache[key.next].ContainsKey(key.direction))
+                    return new();
+                if (!cache[key.next][key.direction].ContainsKey(key.score))
+                    return new();
+                return cache[key.next][key.direction][key.score];
+            }
+
+            public Cache(Maze maze)
+            {
+                cache = new();
+                cache[maze.start] = new();
+                cache[maze.start][maze.initialDirection] = new();
+                cache[maze.start][maze.initialDirection][0] = new();
+            }
         }
     }
 }
