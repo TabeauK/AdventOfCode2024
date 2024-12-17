@@ -403,26 +403,26 @@ namespace Tests
             Assert.AreEqual(64, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay17Example()
         {
             Parser day = new("17");
-            List<Day17> d = day.Parse<Day17>(Parser.ParseType.EveryLine).ToList();
+            Processor d = day.Parse<Processor>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            string output = d.Run;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual("4,6,3,5,6,3,5,2,1,0", output);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay17Part2Example()
         {
             Parser day = new("17part2");
-            List<Day17> d = day.Parse<Day17>(Parser.ParseType.EveryLine).ToList();
+            Processor d = day.Parse<Processor>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            long count = d.FindA();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(117440, count);
         }
 
         // [TestMethod]

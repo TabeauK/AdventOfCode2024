@@ -278,28 +278,29 @@ sw.Restart();
 Console.WriteLine(maze.AllPaths);
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day17 = new("17");
+Processor processor = day17.Parse<Processor>(Parser.ParseType.All).First();
+
+Console.WriteLine("Day 17 part 1");
+Console.WriteLine("Run processor calculation:");
+sw.Restart();
+Console.WriteLine(processor.Run);
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 17 part 2");
+Console.WriteLine("Find correct initial value so the output would match the input:");
+sw.Restart();
+Console.WriteLine(processor.FindA());
+Console.WriteLine($"Time: {sw.Elapsed}");
+
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day17 = new("17");
-List<Day17> d17 = day17.Parse<Day17>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 17 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 17 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day18 = new("18");
