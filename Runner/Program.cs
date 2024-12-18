@@ -295,29 +295,28 @@ sw.Restart();
 Console.WriteLine(processor.FindA());
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day18 = new("18");
+Memory memory = day18.Parse<Memory>(Parser.ParseType.All).First();
+
+Console.WriteLine("Day 18 part 1");
+Console.WriteLine("Find shortest path in memory with corrupted bytes:");
+sw.Restart();
+Console.WriteLine(memory.FindPath(70, 1024));
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 18 part 2");
+Console.WriteLine("Find minimum number of corrupted bytes, so there will be no path:");
+sw.Restart();
+Console.WriteLine(memory.FirstBlockingByte(70, 1024));
+Console.WriteLine($"Time: {sw.Elapsed}");
 
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day18 = new("18");
-List<Day18> d18 = day18.Parse<Day18>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 18 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 18 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day19 = new("19");

@@ -161,10 +161,8 @@ namespace Solutions
                     cache[key.next] = new();
                 if (!cache[key.next].ContainsKey(key.direction))
                     cache[key.next][key.direction] = new();
-
                 if (cache[key.next][key.direction].Any(x => x.Key < value.score))
                     return false;
-
                 if (!cache[key.next][key.direction].ContainsKey(key.score))
                     cache[key.next][key.direction][key.score] = new();
                 if (!cache[key.next][key.direction][key.score].Contains(value))
