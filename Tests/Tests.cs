@@ -447,26 +447,26 @@ namespace Tests
             Assert.AreEqual("6,1", b);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void TestDay19Example()
         {
             Parser day = new("19");
-            List<Day19> d = day.Parse<Day19>(Parser.ParseType.EveryLine).ToList();
+            Towels d = day.Parse<Towels>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.CountPatterns;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(6, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay19Part2Example()
         {
-            Parser day = new("19part2");
-            List<Day19> d = day.Parse<Day19>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("19");
+            Towels d = day.Parse<Towels>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            long count = d.SumPatterns;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(16, count);
         }
 
         // [TestMethod]

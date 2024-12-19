@@ -312,28 +312,29 @@ sw.Restart();
 Console.WriteLine(memory.FirstBlockingByte(70, 1024));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
-// Finish
-Console.WriteLine("");
-Console.WriteLine($"All solutions solved in {score.Elapsed}");
-return 0;
-//Placeholders for solutions
-
 Console.WriteLine("--------------------------------------------------");
 Parser day19 = new("19");
-List<Day19> d19 = day19.Parse<Day19>(Parser.ParseType.EveryLine).ToList();
+Towels towels = day19.Parse<Towels>(Parser.ParseType.All).First();
 
 Console.WriteLine("Day 19 part 1");
-Console.WriteLine("");
+Console.WriteLine("Count how many patterns can be made with preset towels:");
 sw.Restart();
-Console.WriteLine("");
+Console.WriteLine(towels.CountPatterns);
 Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
 
 Console.WriteLine("Day 19 part 2");
 Console.WriteLine("");
 sw.Restart();
-Console.WriteLine("");
+Console.WriteLine(towels.SumPatterns);
 Console.WriteLine($"Time: {sw.Elapsed}");
+
+// Finish
+Console.WriteLine("");
+Console.WriteLine($"All solutions solved in {score.Elapsed}");
+return 0;
+//Placeholders for solutions
+
 
 Console.WriteLine("--------------------------------------------------");
 Parser day20 = new("20");
