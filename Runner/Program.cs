@@ -329,29 +329,29 @@ sw.Restart();
 Console.WriteLine(towels.SumPatterns);
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+
+Console.WriteLine("--------------------------------------------------");
+Parser day20 = new("20");
+Race race = day20.Parse<Race>(Parser.ParseType.All).First();
+
+Console.WriteLine("Day 20 part 1");
+Console.WriteLine("Find all the cheats (skipping a wall) that would decrease the path for at least 100 fields:");
+sw.Restart();
+Console.WriteLine(race.FindCheats(100));
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 20 part 2");
+Console.WriteLine("Find all the cheats (skipping a <20 length path) that would decrease the path for at least 100 fields:");
+sw.Restart();
+Console.WriteLine(race.FindLongCheats(100));
+Console.WriteLine($"Time: {sw.Elapsed}");
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-
-Console.WriteLine("--------------------------------------------------");
-Parser day20 = new("20");
-List<Day20> d20 = day20.Parse<Day20>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 20 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 20 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day21 = new("21");

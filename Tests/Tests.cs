@@ -469,26 +469,26 @@ namespace Tests
             Assert.AreEqual(16, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay20Example()
         {
             Parser day = new("20");
-            List<Day20> d = day.Parse<Day20>(Parser.ParseType.EveryLine).ToList();
+            Race d = day.Parse<Race>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.FindCheats(1);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(44, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay20Part2Example()
         {
-            Parser day = new("20part2");
-            List<Day20> d = day.Parse<Day20>(Parser.ParseType.EveryLine).ToList();
+            Parser day = new("20");
+            Race d = day.Parse<Race>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            int count = d.FindLongCheats(50);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(285, count);
         }
 
         // [TestMethod]
