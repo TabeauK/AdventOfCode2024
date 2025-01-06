@@ -491,22 +491,22 @@ namespace Tests
             Assert.AreEqual(285, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay21Example()
         {
             Parser day = new("21");
-            List<Day21> d = day.Parse<Day21>(Parser.ParseType.EveryLine).ToList();
+            List<PassCodes> d = day.Parse<PassCodes>(Parser.ParseType.EveryLine).ToList();
 
-            int count = 0; //TODO
+            int count = d.Sum(x => x.Complexity(2));
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(126384, count);
         }
 
         // [TestMethod]
         public void TestDay21Part2Example()
         {
             Parser day = new("21part2");
-            List<Day21> d = day.Parse<Day21>(Parser.ParseType.EveryLine).ToList();
+            List<PassCodes> d = day.Parse<PassCodes>(Parser.ParseType.EveryLine).ToList();
 
             int count = 0; //TODO
 

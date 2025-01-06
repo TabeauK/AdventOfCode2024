@@ -347,28 +347,28 @@ sw.Restart();
 Console.WriteLine(race.FindLongCheats(100));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day21 = new("21");
+List<PassCodes> passcodes = day21.Parse<PassCodes>(Parser.ParseType.EveryLine).ToList();
+
+Console.WriteLine("Day 21 part 1");
+Console.WriteLine("Calculate moves needed to guide 2 robots to steer each other into typing passcodes:");
+sw.Restart();
+Console.WriteLine(passcodes.Sum(x => x.Complexity(2)));
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 21 part 2");
+Console.WriteLine("Calculate moves needed to guide 25 robots to steer each other into typing passcodes:");
+sw.Restart();
+Console.WriteLine(passcodes.Sum(x => x.Complexity(25)));
+Console.WriteLine($"Time: {sw.Elapsed}");
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day21 = new("21");
-List<Day21> d21 = day21.Parse<Day21>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 21 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 21 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day22 = new("22");
