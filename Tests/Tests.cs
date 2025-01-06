@@ -497,20 +497,9 @@ namespace Tests
             Parser day = new("21");
             List<PassCodes> d = day.Parse<PassCodes>(Parser.ParseType.EveryLine).ToList();
 
-            int count = d.Sum(x => x.Complexity(2));
+            long count = d.Sum(x => x.Complexity(2));
 
             Assert.AreEqual(126384, count);
-        }
-
-        // [TestMethod]
-        public void TestDay21Part2Example()
-        {
-            Parser day = new("21part2");
-            List<PassCodes> d = day.Parse<PassCodes>(Parser.ParseType.EveryLine).ToList();
-
-            int count = 0; //TODO
-
-            Assert.AreEqual(0, count);
         }
 
         // [TestMethod]

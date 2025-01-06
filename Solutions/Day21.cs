@@ -1,11 +1,13 @@
-﻿
-using System.Text;
+﻿using System.Text;
 
 namespace Solutions
 {
     public class PassCodes : IMyParsable<PassCodes>
     {
         string code = "";
+
+        Dictionary<string, Dictionary<long, long>> cache = new();
+
         static PassCodes IMyParsable<PassCodes>.Parse(string s)
         {
             return new() { code = s };
@@ -16,12 +18,48 @@ namespace Solutions
             throw new NotImplementedException();
         }
 
-        public int Complexity(int robots)
+
+        // input "FromTo"
+        long RecursiveProgress(string input, long treeHeight)
         {
-            string arrows = ArrowsToArrows(EncodedMoves(code, 0), code, 0, -2);
-            for (int i = 0; i < robots; i++)
-                arrows = ArrowsToArrows(EncodedMoves(arrows, 6), arrows, 6, 4);
-            return arrows.Length * int.Parse(code[..^1]);
+            // Recursive guard
+            if (treeHeight == 0)
+                return 1;
+
+            // Init
+            long count = 0;
+
+            if (!cache.ContainsKey(input))
+                cache[input] = new();
+
+            // Cache lookup
+            if (cache[input].TryGetValue(treeHeight, out var cacheHit))
+                return cacheHit;
+
+            int from = int.Parse(input[..1]);
+            string to = input[1..];
+            string nextMoves = Positions(to, from, 4);
+
+            // Recursion
+            for (int i = 0; i < nextMoves.Length - 1; i++)
+                count += RecursiveProgress(nextMoves.Substring(i, 2), treeHeight - 1);
+
+            // Cache
+            cache[input].Add(treeHeight, count);
+
+            // Return
+            return count;
+
+        }
+
+        public long Complexity(int robots)
+        {
+            long count = 0;
+            string arrows = Positions(code, 0, -2);
+            // Recursion
+            for (int i = 0; i < arrows.Length - 1; i++)
+                count += RecursiveProgress(arrows.Substring(i, 2), robots);
+            return count * int.Parse(code[..^1]);
         }
 
         //  +---+---+---+
@@ -33,24 +71,6 @@ namespace Solutions
         //  +---+---+---+
         //      | 0 | A |
         //      +---+---+
-
-        static List<(int X, int Y)> EncodedMoves(string code, int firstDigit)
-        {
-            List<(int X, int Y)> result = new();
-            int digit = firstDigit;
-            for (int i = 0; i < code.Length; i++)
-            {
-                int nextDigit;
-                if (code[i] == 'A')
-                    nextDigit = 0;
-                else if (code[i] == '0')
-                    nextDigit = -1;
-                else nextDigit = int.Parse(code.Substring(i, 1));
-                result.Add((((digit + 3) * 2 % 3) - ((nextDigit + 3) * 2 % 3), (nextDigit + 2) / 3 - (digit + 2) / 3));
-                digit = nextDigit;
-            }
-            return result;
-        }
 
         //      +---+---+
         //      | ^ | A |
@@ -64,9 +84,26 @@ namespace Solutions
         //  | 1 | 2 | 3 |
         //  +---+---+---+
 
-        static string ArrowsToArrows(List<(int X, int Y)> vectors, string arrows, int current, int emptyCell)
+        static string Positions(string arrows, int current, int emptyCell)
         {
+            // Create vectors
+            List<(int X, int Y)> vectors = new();
+            int digit = current;
+            for (int i = 0; i < arrows.Length; i++)
+            {
+                int nextDigit;
+                if (arrows[i] == 'A')
+                    nextDigit = 0;
+                else if (arrows[i] == '0')
+                    nextDigit = -1;
+                else nextDigit = int.Parse(arrows.Substring(i, 1));
+                vectors.Add((((digit + 3) * 2 % 3) - ((nextDigit + 3) * 2 % 3), (nextDigit + 2) / 3 - (digit + 2) / 3));
+                digit = nextDigit;
+            }
+
+            // Recreate moves
             StringBuilder sb = new();
+            sb.Append('6');
             for (int i = 0; i < vectors.Count; i++)
             {
                 int x = vectors[i].X; int y = vectors[i].Y;
@@ -80,7 +117,7 @@ namespace Solutions
                         current += x;
                         x = 0;
                     }
-                    if(y < 0 && current + 3 * y != emptyCell)
+                    if (y < 0 && current + 3 * y != emptyCell)
                     {
                         sb.Append('2', -y);
                         current += 3 * y;
