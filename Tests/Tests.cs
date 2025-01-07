@@ -524,22 +524,22 @@ namespace Tests
             Assert.AreEqual(23, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay23Example()
         {
             Parser day = new("23");
-            List<Day23> d = day.Parse<Day23>(Parser.ParseType.EveryLine).ToList();
+            Connections d = day.Parse<Connections>(Parser.ParseType.MultiLine).First();
 
-            int count = 0; //TODO
+            int count = d.FindCaptainsCluster();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(7, count);
         }
 
         // [TestMethod]
         public void TestDay23Part2Example()
         {
             Parser day = new("23part2");
-            List<Day23> d = day.Parse<Day23>(Parser.ParseType.EveryLine).ToList();
+            Connections d = day.Parse<Connections>(Parser.ParseType.MultiLine).First();
 
             int count = 0; //TODO
 

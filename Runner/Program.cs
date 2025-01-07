@@ -381,22 +381,23 @@ sw.Restart();
 Console.WriteLine(SecretNumber.MaxBananas(secretNumbers));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day23 = new("23");
+Connections connections = day23.Parse<Connections>(Parser.ParseType.MultiLine).First();
+
+Console.WriteLine("Day 23 part 1");
+Console.WriteLine("Find all clusters with 3 computers connected to each other and at least one starting with 't'");
+sw.Restart();
+Console.WriteLine(connections.FindCaptainsCluster());
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
 
-Console.WriteLine("--------------------------------------------------");
-Parser day23 = new("23");
-List<Day23> d23 = day23.Parse<Day23>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 23 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
 
 Console.WriteLine("Day 23 part 2");
 Console.WriteLine("");
