@@ -35,7 +35,7 @@ Console.WriteLine("");
 
 Console.WriteLine("Day 02 part 2");
 Console.WriteLine("How many raports are correct with OneOffTolerance? (Fully Asc/Desc with <1,3> diff)");
-sw.Restart(); 
+sw.Restart();
 Console.WriteLine(raports.Count(x => x.IsCorrect(oneOffTolerance: true)));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
@@ -364,28 +364,28 @@ sw.Restart();
 Console.WriteLine(passcodes.Sum(x => x.Complexity(25)));
 Console.WriteLine($"Time: {sw.Elapsed}");
 
+Console.WriteLine("--------------------------------------------------");
+Parser day22 = new("22");
+List<SecretNumber> secretNumbers = day22.Parse<SecretNumber>(Parser.ParseType.EveryLine).ToList();
+
+Console.WriteLine("Day 22 part 1");
+Console.WriteLine("Calculate sum of secret number after 2000 modifications:");
+sw.Restart();
+Console.WriteLine(secretNumbers.Sum(x => x.Mix2000()));
+Console.WriteLine($"Time: {sw.Elapsed}");
+Console.WriteLine("");
+
+Console.WriteLine("Day 22 part 2");
+Console.WriteLine("Find maximum bananas one can get at the market:");
+sw.Restart();
+Console.WriteLine(SecretNumber.MaxBananas(secretNumbers));
+Console.WriteLine($"Time: {sw.Elapsed}");
+
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-Console.WriteLine("--------------------------------------------------");
-Parser day22 = new("22");
-List<Day22> d22 = day22.Parse<Day22>(Parser.ParseType.EveryLine).ToList();
-
-Console.WriteLine("Day 22 part 1");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-Console.WriteLine("");
-
-Console.WriteLine("Day 22 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day23 = new("23");

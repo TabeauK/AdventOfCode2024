@@ -502,26 +502,26 @@ namespace Tests
             Assert.AreEqual(126384, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay22Example()
         {
             Parser day = new("22");
-            List<Day22> d = day.Parse<Day22>(Parser.ParseType.EveryLine).ToList();
+            List<SecretNumber> d = day.Parse<SecretNumber>(Parser.ParseType.EveryLine).ToList();
 
-            int count = 0; //TODO
+            long count = d.Sum(x => x.Mix2000());
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(37327623, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay22Part2Example()
         {
             Parser day = new("22part2");
-            List<Day22> d = day.Parse<Day22>(Parser.ParseType.EveryLine).ToList();
+            List<SecretNumber> d = day.Parse<SecretNumber>(Parser.ParseType.EveryLine).ToList();
 
-            int count = 0; //TODO
+            long count = SecretNumber.MaxBananas(d);
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(23, count);
         }
 
         // [TestMethod]
