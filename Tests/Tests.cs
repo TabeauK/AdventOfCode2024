@@ -530,20 +530,20 @@ namespace Tests
             Parser day = new("23");
             Connections d = day.Parse<Connections>(Parser.ParseType.MultiLine).First();
 
-            int count = d.FindCaptainsCluster();
+            int count = d.Find3SizedClustersCount;
 
             Assert.AreEqual(7, count);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay23Part2Example()
         {
-            Parser day = new("23part2");
+            Parser day = new("23");
             Connections d = day.Parse<Connections>(Parser.ParseType.MultiLine).First();
 
-            int count = 0; //TODO
+            string password = d.Password;
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual("co,de,ka,ta", password);
         }
 
         // [TestMethod]

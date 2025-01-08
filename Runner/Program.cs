@@ -388,22 +388,21 @@ Connections connections = day23.Parse<Connections>(Parser.ParseType.MultiLine).F
 Console.WriteLine("Day 23 part 1");
 Console.WriteLine("Find all clusters with 3 computers connected to each other and at least one starting with 't'");
 sw.Restart();
-Console.WriteLine(connections.FindCaptainsCluster());
+Console.WriteLine(connections.Find3SizedClustersCount);
 Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
+
+Console.WriteLine("Day 23 part 2");
+Console.WriteLine("Find computers in the biggest cluster:");
+sw.Restart();
+Console.WriteLine(connections.Password);
+Console.WriteLine($"Time: {sw.Elapsed}");
 
 // Finish
 Console.WriteLine("");
 Console.WriteLine($"All solutions solved in {score.Elapsed}");
 return 0;
 //Placeholders for solutions
-
-
-Console.WriteLine("Day 23 part 2");
-Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day24 = new("24");
