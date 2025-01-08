@@ -546,48 +546,26 @@ namespace Tests
             Assert.AreEqual("co,de,ka,ta", password);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void TestDay24Example()
         {
             Parser day = new("24");
-            List<Day24> d = day.Parse<Day24>(Parser.ParseType.EveryLine).ToList();
+            Device d = day.Parse<Device>(Parser.ParseType.All).First();
 
-            int count = 0; //TODO
+            UInt128 count = d.GetZ();
 
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(2024, count);
         }
 
-        // [TestMethod]
-        public void TestDay24Part2Example()
-        {
-            Parser day = new("24part2");
-            List<Day24> d = day.Parse<Day24>(Parser.ParseType.EveryLine).ToList();
-
-            int count = 0; //TODO
-
-            Assert.AreEqual(0, count);
-        }
-
-        // [TestMethod]
+        [TestMethod]
         public void TestDay25Example()
         {
             Parser day = new("25");
-            List<Day25> d = day.Parse<Day25>(Parser.ParseType.EveryLine).ToList();
+            List<KeysAndLocks> d = day.Parse<KeysAndLocks>(Parser.ParseType.MultiLine).ToList();
 
-            int count = 0; //TODO
+            int count = KeysAndLocks.Match(d);
 
-            Assert.AreEqual(0, count);
-        }
-
-        // [TestMethod]
-        public void TestDay25Part2Example()
-        {
-            Parser day = new("25part2");
-            List<Day25> d = day.Parse<Day25>(Parser.ParseType.EveryLine).ToList();
-
-            int count = 0; //TODO
-
-            Assert.AreEqual(0, count);
+            Assert.AreEqual(3, count);
         }
     }
 }

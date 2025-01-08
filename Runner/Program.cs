@@ -324,7 +324,7 @@ Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
 
 Console.WriteLine("Day 19 part 2");
-Console.WriteLine("");
+Console.WriteLine("Sum how many patterns can be made with preset towels:");
 sw.Restart();
 Console.WriteLine(towels.SumPatterns);
 Console.WriteLine($"Time: {sw.Elapsed}");
@@ -398,43 +398,35 @@ sw.Restart();
 Console.WriteLine(connections.Password);
 Console.WriteLine($"Time: {sw.Elapsed}");
 
-// Finish
-Console.WriteLine("");
-Console.WriteLine($"All solutions solved in {score.Elapsed}");
-return 0;
-//Placeholders for solutions
-
 Console.WriteLine("--------------------------------------------------");
 Parser day24 = new("24");
-List<Day24> d24 = day24.Parse<Day24>(Parser.ParseType.EveryLine).ToList();
+Device device = day24.Parse<Device>(Parser.ParseType.All).First();
 
 Console.WriteLine("Day 24 part 1");
-Console.WriteLine("");
+Console.WriteLine("Go through a graph of logic gates and count bits:");
 sw.Restart();
-Console.WriteLine("");
+Console.WriteLine(device.GetZ());
 Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
 
 Console.WriteLine("Day 24 part 2");
-Console.WriteLine("");
+Console.WriteLine("Find swaped logic gates result wires in 45-bit full adder:");
 sw.Restart();
-Console.WriteLine("");
+Console.WriteLine(device.FindMalfunctions());
 Console.WriteLine($"Time: {sw.Elapsed}");
 
 Console.WriteLine("--------------------------------------------------");
 Parser day25 = new("25");
-List<Day25> d25 = day25.Parse<Day25>(Parser.ParseType.EveryLine).ToList();
+List<KeysAndLocks> keysAndLocks = day25.Parse<KeysAndLocks>(Parser.ParseType.MultiLine).ToList();
 
 Console.WriteLine("Day 25 part 1");
-Console.WriteLine("");
+Console.WriteLine("Count key-lock pairs:");
 sw.Restart();
-Console.WriteLine("");
+Console.WriteLine(KeysAndLocks.Match(keysAndLocks));
 Console.WriteLine($"Time: {sw.Elapsed}");
 Console.WriteLine("");
 
-Console.WriteLine("Day 25 part 2");
+// Finish
 Console.WriteLine("");
-sw.Restart();
-Console.WriteLine("");
-Console.WriteLine($"Time: {sw.Elapsed}");
-
+Console.WriteLine($"All solutions solved in {score.Elapsed}");
+return 0;
